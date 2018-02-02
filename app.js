@@ -36,10 +36,11 @@ function onReady() {
       const title = document.createElement('span');
       title.textContent = toDo.title;
 
-      //this line was missing from the exercise
-      newLi.textContent = toDo.title;
-
       toDoList.appendChild(newLi);
+
+      //this line was missing from the exercise
+      newLi.appendChild(title);
+
       newLi.appendChild(checkbox);
     });
   }
