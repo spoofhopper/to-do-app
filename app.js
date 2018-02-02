@@ -28,6 +28,8 @@ function onReady() {
     toDoList.textContent = '';
 
     toDos.forEach(function(toDo) {
+
+      //in the instuctions this constant is named both newToDo and newLi, needs to be fixed
       const newLi = document.createElement('li');
 
       const checkbox = document.createElement('input');
