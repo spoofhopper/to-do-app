@@ -1,53 +1,60 @@
 function onReady() {
+  let toDos = [];
   const addToDoForm = document.getElementById('addToDoForm');
   const newToDoText = document.getElementById('newToDoText');
   const toDoList = document.getElementById('toDoList');
 
-  addToDoForm.addEventListener('submit', event => {
-    event.preventDefault();
+  function createNewToDo() {
+    if (!newToDoText.value) {
+      return;
+    }
 
-    //  get the text
-    let title = newToDoText.value;
-
-    //  create a new li
-    let newLi = document.createElement('li');
-
-    //  create a new input
-    let checkbox = document.createElement('input');
-
-    //  set the input's type to checkbox
-    checkbox.type = 'checkbox';
-
-    //  create a delete button
-    let delete_button = document.createElement('input');
-
-    //  set the delete_button's type to button
-    delete_button.type = 'button';
-    delete_button.value = 'Delete';
-
-    // add delete functionality to delete_button
-    delete_button.addEventListener('click', event => {
-      toDoList.removeChild(newLi);
+    toDos.push({
+      title: newToDoText.value,
+      complete: false
     });
 
-    //  set the title
-    newLi.textContent = title;
+    //WHY IS THIS LINE NECESSARY?
+    // newToDoText.value = '';
 
-    //  attach the checkbox to the li
-    newLi.appendChild(checkbox);
+    renderTheUI();
+  }
 
-    //  attach the Delete button to the li
-    newLi.appendChild(delete_button);
+  function renderTheUI() {
+    // WHY IS THIS LINE NECESSARY?
+    // const toDoList = document.getElementById('toDoList');
 
-    //  attach the li to the ul
-    toDoList.appendChild(newLi);
+    //this line was not explained correctly in the directions - the directions referenced `newLi` but really meant `toDoList` per the instructions
+    toDoList.textContent = '';
 
-    //  empty the input
+    toDos.forEach(function(toDo) {
+      const newLi = document.createElement('li');
+
+      const checkbox = document.createElement('input');
+      checkbox.type = "checkbox";
+
+      const title = document.createElement('span');
+      title.textContent = toDo.title;
+
+      //this line was missing from the exercise
+      newLi.textContent = toDo.title;
+
+      toDoList.appendChild(newLi);
+      newLi.appendChild(checkbox);
+    });
+  }
+
+  addToDoForm.addEventListener('submit', event => {
+    event.preventDefault();
+    createNewToDo();
     newToDoText.value = '';
-  });
+  })
+
+  renderTheUI();
+
+
+
 }
-
-
 
 window.onload = function() {
   alert("The window has loaded!");
