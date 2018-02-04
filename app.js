@@ -1,6 +1,13 @@
 function onReady() {
   let toDos = [];
   let id = 0;
+
+  let str = localStorage.getItem("toDos");
+  if (str !== null) {
+    toDos = JSON.parse(str);
+    id = toDos.length;
+  };
+
   const addToDoForm = document.getElementById('addToDoForm');
   const newToDoText = document.getElementById('newToDoText');
   const toDoList = document.getElementById('toDoList');
@@ -42,6 +49,8 @@ function onReady() {
       delete_button.type = 'button';
       delete_button.value = 'Delete';
 
+      //should this and the checkbox listener REALLY be inside renderTheUI?
+      //It seems like they should not (self-referencing seems weird), but they do not seem to work properly if they're outside
       delete_button.addEventListener('click', event => {
         deleteToDo(toDo.id);
         renderTheUI();
@@ -55,6 +64,8 @@ function onReady() {
         }
         renderTheUI();
       })
+
+      localStorage.setItem('toDos', JSON.stringify(toDos));
 
       toDoList.appendChild(newLi);
       newLi.appendChild(checkbox);
