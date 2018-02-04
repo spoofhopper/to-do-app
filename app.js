@@ -45,8 +45,16 @@ function onReady() {
       delete_button.addEventListener('click', event => {
         deleteToDo(toDo.id);
         renderTheUI();
-        // toDoList.removeChild(newLi);
       });
+
+      checkbox.addEventListener('checked', event => {
+        if (this.checked) {
+          complete = true;
+        } else {
+          complete = false;
+        }
+        renderTheUI();
+      })
 
       toDoList.appendChild(newLi);
       newLi.appendChild(checkbox);
