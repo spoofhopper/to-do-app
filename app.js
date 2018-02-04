@@ -20,6 +20,10 @@ function onReady() {
     renderTheUI();
   }
 
+  function deleteToDo(id) {
+    toDos = toDos.filter(item => item.id !== id);
+  }
+
   function renderTheUI() {
 
     toDoList.textContent = '';
@@ -39,7 +43,9 @@ function onReady() {
       delete_button.value = 'Delete';
 
       delete_button.addEventListener('click', event => {
-        toDoList.removeChild(newLi);
+        deleteToDo(toDo.id);
+        renderTheUI();
+        // toDoList.removeChild(newLi);
       });
 
       toDoList.appendChild(newLi);
